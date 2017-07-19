@@ -25,6 +25,12 @@ if [[ $START == *"$1"* ]]; then
 
   trap _stop SIGTERM SIGINT
   $CMD start
+  COUNT=0
+  MAXDELAY=${STARTUP_MAXDELAY:-20}
+  while [ $COUNT -lt $MAXDELAY -a ! -f /data/log/instance.log ] ; do
+    sleep 1
+    COUNT=`expr $COUNT + 1`
+  done
   $CMD logtail &
 
   child=$!

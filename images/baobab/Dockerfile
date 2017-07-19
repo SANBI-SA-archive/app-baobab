@@ -93,6 +93,8 @@ VOLUME /data/filestorage /data/blobstorage
 
 COPY docker-initialize.py docker-entrypoint.sh /
 
+# maximum time to wait for LIMS daemon to start, by default 20 seconds
+ENV STARTUP_MAXDELAY=20
 RUN chmod a+x /docker-entrypoint.sh
 
 EXPOSE 8080
